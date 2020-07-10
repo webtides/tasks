@@ -6,7 +6,7 @@ import notify from 'gulp-notify';
 import gulpIf from 'gulp-if';
 import hash from 'src/util/GulpHashPlugin';
 
-import Config from 'config.js';
+import Config from 'src/config.js';
 
 export default (options = {}) => {
 	return () => {

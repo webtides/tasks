@@ -1,15 +1,15 @@
-import browserSync from './src/tasks/browserSync';
-import clean from './src/tasks/clean';
-import copy from './src/tasks/copy';
-import css from './src/tasks/css';
-import js from './src/tasks/js';
-import lintCSS from './src/tasks/lintCSS';
-import lintJS from './src/tasks/lintJS';
-import run from './src/tasks/run';
-import svg from './src/tasks/svg';
-import watch from './src/tasks/watch';
+import browserSync from 'src/tasks/browserSync';
+import clean from 'src/tasks/clean';
+import copy from 'src/tasks/copy';
+import css from 'src/tasks/css';
+import js from 'src/tasks/js';
+import lintCSS from 'src/tasks/lintCSS';
+import lintJS from 'src/tasks/lintJS';
+import run from 'src/tasks/run';
+import svg from 'src/tasks/svg';
+import watch from 'src/tasks/watch';
 
-import Config from './config';
+import Config from 'src/config';
 
 const options = (options = {}) => {
 	Object.assign(Config, options);
