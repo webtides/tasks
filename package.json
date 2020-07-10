@@ -1,6 +1,6 @@
 {
-	"name": "tasks",
-	"version": "0.1.0-1",
+	"name": "@webtides/tasks",
+	"version": "0.1.0-2",
 	"description": "Tasks is a wrapper around gulp for most of the use cases for simple and modern (frontend) web development ",
 	"keywords": [
 		"tasks",
