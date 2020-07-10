@@ -31,15 +31,17 @@ const tasks = {
 export { tasks, options };
 
 // API
-// tasks.clean({ paths: [] });
-// tasks.copy({ paths: [] });
-// tasks.js({ src, destination });
-// tasks.css({ src, destination });
-// tasks.run({ cmd: 'ls', args: ['-la'] });
-// tasks.svg({ paths: [] });
-// tasks.browserSync({ files: [] });
+
 // options({
 //     projectTitle: 'frontend-tasks',
 //     showNotifications: true,
 //     versionManifest: false,
 // });
+
+// tasks.clean({ paths: [] });
+// tasks.copy({ paths: [] });
+// tasks.js({ src, dest });
+// tasks.css({ src, dest });
+// tasks.run({ cmd: 'ls', args: ['-la'] });
+// tasks.svg({ paths: [] });
+// tasks.browserSync();
