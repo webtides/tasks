@@ -1,6 +1,6 @@
 {
 	"name": "@webtides/tasks",
-	"version": "0.1.0-2",
+	"version": "0.1.0-3",
 	"description": "Tasks is a wrapper around gulp for most of the use cases for simple and modern (frontend) web development ",
 	"keywords": [
 		"tasks",
@@ -14,7 +14,10 @@
 		"svg sprite"
 	],
 	"repository": "git@github.com:webtides/tasks.git",
-	"author": "Webtides",
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
+	},
+	"author": "@webtides",
 	"license": "MIT",
 	"main": "dist/cjs/index.js",
 	"module": "dist/es/index.js",

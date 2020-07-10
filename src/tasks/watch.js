@@ -1,7 +1,7 @@
 import gulp from 'gulp';
 import notify from 'gulp-notify';
 
-import Config from 'config.js';
+import Config from '../config.js';
 
 export default (options) => {
 	return () => {
