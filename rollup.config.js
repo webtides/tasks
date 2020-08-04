@@ -1,8 +1,13 @@
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
-const babel = require('rollup-plugin-babel');
+import babel from '@rollup/plugin-babel';
 
 const externals = [
+	'@rollup/plugin-babel',
+	'@rollup/plugin-node-resolve',
+	'@rollup/plugin-commonjs',
+	'@rollup/plugin-json',
+	'rollup-plugin-postcss',
+	'rollup-plugin-svg',
+	'rollup-plugin-gzip',
 	'gulp',
 	'stylelint',
 	'gulp-postcss',
@@ -26,11 +31,8 @@ const externals = [
 	'child_process',
 	'rollup',
 	'rollup-plugin-node-resolve',
-	'rollup-plugin-babel',
 	'rollup-plugin-terser',
 	'rollup-plugin-cleanup',
-	'rollup-plugin-postcss',
-	'rollup-plugin-commonjs',
 	'zlib',
 	'util',
 ];
@@ -39,7 +41,7 @@ module.exports = [
 	{
 		input: 'src/index.js',
 		external: externals,
-		plugins: [babel(), resolve(), commonjs()],
+		plugins: [babel({ babelHelpers: 'bundled' })],
 		output: {
 			interop: false,
 			file: 'dist/cjs/index.js',
@@ -49,7 +51,7 @@ module.exports = [
 	{
 		input: 'src/index.js',
 		external: externals,
-		plugins: [babel(), resolve(), commonjs()],
+		plugins: [babel({ babelHelpers: 'bundled' })],
 		output: {
 			interop: false,
 			file: 'dist/es/index.js',

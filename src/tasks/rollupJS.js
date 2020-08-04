@@ -1,12 +1,12 @@
 import environments from 'gulp-environments';
 import { rollup } from 'rollup';
-import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
 import svg from 'rollup-plugin-svg';
-import commonjs from 'rollup-plugin-commonjs';
 import gzipPlugin from 'rollup-plugin-gzip';
 import hash from 'src/util/RollupHashPlugin';
 
