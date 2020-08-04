@@ -1,7 +1,7 @@
 import glob from 'glob-all';
 import rollupJS from './rollupJS.js';
 
-export default (options = { src: [], dest: '', inputOptions: {}, outputOptions: {} }) => {
+export default (options = { src: [], dest: '', inputOptions: {}, outputOptions: {}, postcssOptions: {} }) => {
 	return () => {
 		return rollupJS(
 			{
@@ -12,6 +12,7 @@ export default (options = { src: [], dest: '', inputOptions: {}, outputOptions: 
 				dir: options.dest,
 				...options.outputOptions,
 			},
+			options.postcssOptions,
 		);
 	};
 };

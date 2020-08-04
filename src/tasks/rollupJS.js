@@ -15,13 +15,13 @@ const isProd = environments.production;
 
 import Config from 'src/config.js';
 
-export default async (inputOptions = {}, outputOptions = {}) => {
+export default async (inputOptions = {}, outputOptions = {}, postcssOptions = {}) => {
 	inputOptions = {
 		input: '',
 		plugins: [
 			babel(),
 			resolve(),
-			postcss(),
+			postcss(postcssOptions),
 			svg(),
 			commonjs(),
 			Config.versionManifest !== false && hash(Config.versionManifest),
