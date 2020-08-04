@@ -15,28 +15,38 @@ const isProd = environments.production;
 
 import Config from 'src/config.js';
 
-export default async (inputOptions = {}, outputOptions = {}, postcssOptions = {}) => {
-	inputOptions = {
+export default async (
+	options = {
+		inputOptions: {},
+		outputOptions: {},
+		babelOptions: {},
+		resolveOptions: {},
+		postcssOptions: {},
+		commonjsOptions: {},
+		cleanupOptions: {},
+	},
+) => {
+	const inputOptions = {
 		input: '',
 		plugins: [
-			babel(),
-			resolve(),
-			postcss(postcssOptions),
+			babel({ ...options.babelOptions }),
+			resolve({ ...options.resolveOptions }),
+			postcss({ ...options.postcssOptions }),
 			svg(),
-			commonjs(),
+			commonjs({ ...options.commonjsOptions }),
 			Config.versionManifest !== false && hash(Config.versionManifest),
-			isProd() && cleanup({}),
+			isProd() && cleanup({ ...options.cleanupOptions }),
 			isProd() && terser(),
 			isProd() && gzipPlugin(),
 		],
-		...inputOptions,
+		...options.inputOptions,
 	};
-	outputOptions = {
+	const outputOptions = {
 		dir: 'public',
 		entryFileNames: '[name].js',
 		format: 'es',
 		sourcemap: true,
-		...outputOptions,
+		...options.outputOptions,
 	};
 
 	const bundle = await rollup(inputOptions);
