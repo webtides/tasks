@@ -1,10 +1,9 @@
-import babel from '@rollup/plugin-babel';
+import babel from 'rollup-plugin-babel';
 
 const externals = [
-	'@rollup/plugin-babel',
-	'@rollup/plugin-node-resolve',
-	'@rollup/plugin-commonjs',
-	'@rollup/plugin-json',
+	'rollup-plugin-babel',
+	'rollup-plugin-node-resolve',
+	'rollup-plugin-commonjs',
 	'rollup-plugin-postcss',
 	'rollup-plugin-svg',
 	'rollup-plugin-gzip',
@@ -41,7 +40,7 @@ module.exports = [
 	{
 		input: 'src/index.js',
 		external: externals,
-		plugins: [babel({ babelHelpers: 'bundled' })],
+		plugins: [babel()],
 		output: {
 			interop: false,
 			file: 'dist/cjs/index.js',
@@ -51,7 +50,7 @@ module.exports = [
 	{
 		input: 'src/index.js',
 		external: externals,
-		plugins: [babel({ babelHelpers: 'bundled' })],
+		plugins: [babel()],
 		output: {
 			interop: false,
 			file: 'dist/es/index.js',
