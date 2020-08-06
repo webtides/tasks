@@ -6,7 +6,6 @@ const externals = [
 	'rollup-plugin-commonjs',
 	'rollup-plugin-postcss',
 	'rollup-plugin-svg',
-	'rollup-plugin-gzip',
 	'gulp',
 	'stylelint',
 	'gulp-postcss',

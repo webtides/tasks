@@ -7,7 +7,6 @@ import { terser } from 'rollup-plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
 import svg from 'rollup-plugin-svg';
-import gzipPlugin from 'rollup-plugin-gzip';
 import hash from 'src/util/RollupHashPlugin';
 
 const isDev = environments.development;
@@ -37,7 +36,6 @@ export default async (
 			Config.versionManifest !== false && hash(Config.versionManifest),
 			isProd() && cleanup({ ...options.cleanupOptions }),
 			isProd() && terser(),
-			isProd() && gzipPlugin(),
 		],
 		...options.inputOptions,
 	};

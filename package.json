@@ -1,6 +1,6 @@
 {
 	"name": "@webtides/tasks",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Tasks is a wrapper around gulp for most of the use cases for simple and modern (frontend) web development ",
 	"keywords": [
 		"tasks",
@@ -71,7 +71,6 @@
 		"rollup-plugin-babel": "^4.4.0",
 		"rollup-plugin-cleanup": "^3.1.1",
 		"rollup-plugin-commonjs": "^10.1.0",
-		"rollup-plugin-gzip": "^2.5.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-postcss": "^3.1.2",
 		"rollup-plugin-svg": "^2.0.0",
