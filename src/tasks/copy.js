@@ -12,7 +12,7 @@ export default (options) => {
 		const streams = [];
 
 		options.paths.forEach((path) => {
-			streams.push(copyTask(path.src, path.dest, path.flat || true));
+			streams.push(copyTask(path.src, path.dest, path.flat ?? true));
 		});
 
 		return merge(streams);
