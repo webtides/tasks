@@ -45,6 +45,12 @@ module.exports = [
 			file: 'dist/cjs/index.js',
 			format: 'cjs',
 		},
+		onwarn(warning, warn) {
+			if (warning.code === 'UNRESOLVED_IMPORT') throw new Error(warning.message);
+
+			// Use default for everything else
+			warn(warning);
+		},
 	},
 	{
 		input: 'src/index.js',
@@ -54,6 +60,12 @@ module.exports = [
 			interop: false,
 			file: 'dist/es/index.js',
 			format: 'es',
+		},
+		onwarn(warning, warn) {
+			if (warning.code === 'UNRESOLVED_IMPORT') throw new Error(warning.message);
+
+			// Use default for everything else
+			warn(warning);
 		},
 	},
 ];
