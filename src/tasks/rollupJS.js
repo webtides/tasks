@@ -37,6 +37,15 @@ export default async (
 			isProd() && cleanup({ ...options.cleanupOptions }),
 			isProd() && terser(),
 		],
+		onwarn(warning, warn) {
+			if (warning.code === 'UNRESOLVED_IMPORT') {
+				const message = `'${warning.source}' is imported by ${warning.importer}, but could not be resolved. If this is an external dependency (https://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency) - please add it to inputOptions.external (https://rollupjs.org/guide/en/#external)`;
+				throw new Error(message);
+			}
+
+			// Use default for everything else
+			warn(warning);
+		},
 		...options.inputOptions,
 	};
 	const outputOptions = {
