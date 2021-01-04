@@ -5,6 +5,7 @@ import css from 'src/tasks/css';
 import js from 'src/tasks/js';
 import lintCSS from 'src/tasks/lintCSS';
 import lintJS from 'src/tasks/lintJS';
+import nodemon from 'src/tasks/nodemon';
 import run from 'src/tasks/run';
 import svg from 'src/tasks/svg';
 import watch from 'src/tasks/watch';
@@ -23,6 +24,7 @@ const tasks = {
 	js,
 	lintCSS,
 	lintJS,
+	nodemon,
 	run,
 	svg,
 	watch,
@@ -44,4 +46,5 @@ export { tasks, options };
 // tasks.css({ src, dest });
 // tasks.run({ cmd: 'ls', args: ['-la'] });
 // tasks.svg({ paths: [] });
+// tasks.nodemon();
 // tasks.browserSync();
