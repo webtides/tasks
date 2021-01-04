@@ -8,6 +8,7 @@ const externals = [
 	'rollup-plugin-svg',
 	'gulp',
 	'stylelint',
+	'gulp-nodemon',
 	'gulp-postcss',
 	'gulp-flatten',
 	'merge-stream',
