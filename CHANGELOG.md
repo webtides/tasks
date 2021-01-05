@@ -15,6 +15,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.3.0] - 2021-01-05
+
+### Added
+* `nodemon` task for starting (and watching/restarting) node servers 
+
+### Changed
+- **breaking change:** The rollup js task will now throw an error instead of just a warning in the console when you have unresolved dependecies.
+    We think this should be the default behaviour. 
+
 ## [0.2.5] - 2020-08-07
 
 ### Fixed
