@@ -1,6 +1,6 @@
 {
 	"name": "@webtides/tasks",
-	"version": "0.3.0",
+	"version": "0.4.0",
 	"description": "Tasks is a wrapper around gulp for most of the use cases for simple and modern (frontend) web development ",
 	"keywords": [
 		"tasks",
@@ -16,12 +16,16 @@
 	"repository": "git@github.com:webtides/tasks.git",
 	"author": "@webtides",
 	"license": "MIT",
-	"main": "dist/cjs/index.js",
-	"module": "dist/es/index.js",
+	"main": "./dist/cjs/index.js",
+	"module": "./src/index.js",
+	"exports": {
+		"require": "./dist/cjs/index.js",
+		"import": "./src/index.js",
+		"default": "./src/index.js"
+	},
 	"files": [
-		"dist/cjs/*",
-		"dist/es/*",
-		"src/tasks/*"
+		"/dist",
+		"/src"
 	],
 	"dependencies": {
 		"@babel/core": "^7.10.4",

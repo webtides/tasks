@@ -53,20 +53,4 @@ module.exports = [
 			warn(warning);
 		},
 	},
-	{
-		input: 'src/index.js',
-		external: externals,
-		plugins: [babel()],
-		output: {
-			interop: false,
-			file: 'dist/es/index.js',
-			format: 'es',
-		},
-		onwarn(warning, warn) {
-			if (warning.code === 'UNRESOLVED_IMPORT') throw new Error(warning.message);
-
-			// Use default for everything else
-			warn(warning);
-		},
-	},
 ];
