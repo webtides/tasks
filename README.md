@@ -2,7 +2,7 @@
 
 > IMPORTANT: The tasks are work in progress and subject to major (& breaking) changes until the 1.0 release. Until then, we would encourage everyone to use a pinned version and not rely on semantic versioning.
 
-`@webtides/tasks` is a wrapper around gulp for most of the use cases for simple and modern (frontend) web development 
+`@webtides/tasks` is a wrapper around gulp for most of the use cases for simple and modern (frontend) web development
 
 ## Introduction
 
@@ -13,11 +13,6 @@ If configuring any build tools (gulp, grunt, webpack, etc.) was ever to complica
 ## How to use
 
 #### Installation
-
-create a `.npmrc` file in your project root and add the following line to set the registry for packages in the `@webtides` scope. 
-```sh
-@webtides:registry=https://npm.pkg.github.com/
-```                                                                  
 
 install `@webtides/tasks`
 
@@ -34,7 +29,7 @@ import { task, parallel, series } from 'gulp';
 options({
     projectTitle: 'tasks',
     showNotifications: true,
-    versionManifest: true,
+    versionManifest: true
 });
 
 tasks.clean({ paths: [] });
