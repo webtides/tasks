@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
-## [0.4.0] - 2021-04-14
+## [0.5.0] - 2021-04-14
 
 ### Changed
 
