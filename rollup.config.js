@@ -1,9 +1,9 @@
 import babel from 'rollup-plugin-babel';
 
 const externals = [
-	'rollup-plugin-babel',
-	'rollup-plugin-node-resolve',
-	'rollup-plugin-commonjs',
+	'@rollup/plugin-babel',
+	'@rollup/plugin-node-resolve',
+	'@rollup/plugin-commonjs',
 	'rollup-plugin-postcss',
 	'rollup-plugin-svg',
 	'gulp',
@@ -29,7 +29,6 @@ const externals = [
 	'through2',
 	'child_process',
 	'rollup',
-	'rollup-plugin-node-resolve',
 	'rollup-plugin-terser',
 	'rollup-plugin-cleanup',
 	'zlib',

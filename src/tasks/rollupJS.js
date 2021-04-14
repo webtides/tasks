@@ -1,8 +1,8 @@
 import environments from 'gulp-environments';
 import { rollup } from 'rollup';
-import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import { babel }from '@rollup/plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
@@ -28,11 +28,11 @@ export default async (
 	const inputOptions = {
 		input: '',
 		plugins: [
-			babel({ ...options.babelOptions }),
-			resolve({ ...options.resolveOptions }),
+			nodeResolve({ ...options.resolveOptions }),
 			postcss({ ...options.postcssOptions }),
 			svg(),
 			commonjs({ ...options.commonjsOptions }),
+			babel({ ...options.babelOptions }),
 			Config.versionManifest !== false && hash(Config.versionManifest),
 			isProd() && cleanup({ ...options.cleanupOptions }),
 			isProd() && terser(),
