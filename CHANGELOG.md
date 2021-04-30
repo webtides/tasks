@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.5.1] - 2021-04-30
+
+### ADDED
+
+-   adds an optional watch mode to js task. It will be enabled by default in dev environments. It can be disabled by passing watchOptions = false if a custom watch is preffered
+
 ## [0.5.0] - 2021-04-14
 
 ### Changed

@@ -1,8 +1,9 @@
 import environments from 'gulp-environments';
-import { rollup } from 'rollup';
-import { babel }from '@rollup/plugin-babel';
+import { rollup, watch } from 'rollup';
+import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import notify from 'gulp-notify';
 import { terser } from 'rollup-plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
@@ -23,6 +24,7 @@ export default async (
 		postcssOptions: {},
 		commonjsOptions: {},
 		cleanupOptions: {},
+		watchOptions: {},
 	},
 ) => {
 	const inputOptions = {
@@ -56,6 +58,51 @@ export default async (
 		...options.outputOptions,
 	};
 
-	const bundle = await rollup(inputOptions);
-	return await bundle.write(outputOptions);
+	if (isDev && options.watchOptions !== false) {
+		return new Promise((resolve) => {
+			const watcher = watch({
+				...inputOptions,
+				output: [outputOptions],
+				watch: {
+					...options.watchOptions,
+				},
+			});
+			watcher.on('event', (event) => {
+				if (event.code === 'START') {
+					if (Config.showNotifications) {
+						notify({
+							title: Config.projectTitle,
+							message: 'Starting "rollup"...',
+						}).write('');
+					}
+				}
+				if (event.code === 'BUNDLE_END') {
+					if (Config.showNotifications) {
+						notify({
+							title: 'rollup',
+							message: 'END "rollup" after ' + (event.duration / 1000).toFixed(2) + ' s',
+						}).write('');
+					}
+					if (event.result) {
+						event.result.close();
+					}
+				}
+				if (event.code === 'END') {
+					resolve();
+				}
+				if (event.code === 'ERROR' || event.code === 'FATAL') {
+					console.log('rollup watch ERROR', event);
+					if (Config.showNotifications) {
+						notify.onError({
+							title: Config.projectTitle,
+							message: 'JS ERROR|FATAL',
+						});
+					}
+				}
+			});
+		});
+	} else {
+		const bundle = await rollup(inputOptions);
+		return await bundle.write(outputOptions);
+	}
 };
