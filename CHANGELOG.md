@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.5.2] - 2021-05-05
+
+### FIXED
+
+-   fixes bug with rollup watcher being active in prod build
+
 ## [0.5.1] - 2021-04-30
 
 ### ADDED
