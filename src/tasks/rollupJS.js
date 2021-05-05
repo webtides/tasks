@@ -58,7 +58,7 @@ export default async (
 		...options.outputOptions,
 	};
 
-	if (isDev && options.watchOptions !== false) {
+	if (isDev() && options.watchOptions !== false) {
 		return new Promise((resolve) => {
 			const watcher = watch({
 				...inputOptions,
