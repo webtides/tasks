@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.5.3] - 2021-05-11
+
+### FIXED
+
+-   fixes postcss config loader dependency
+
 ## [0.5.2] - 2021-05-05
 
 ### FIXED
