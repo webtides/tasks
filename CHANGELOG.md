@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.5.4] - 2021-05-11
+
+### FIXED
+
+-   updates cssnano to new major
+
 ## [0.5.3] - 2021-05-11
 
 ### FIXED
