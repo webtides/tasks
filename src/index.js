@@ -12,6 +12,9 @@ import watch from 'src/tasks/watch';
 
 import Config from 'src/config';
 
+import GulpHashPlugin from './util/GulpHashPlugin';
+import RollupHashPlugin from './util/RollupHashPlugin';
+
 const options = (options = {}) => {
 	Object.assign(Config, options);
 };
@@ -30,7 +33,7 @@ const tasks = {
 	watch,
 };
 
-export { tasks, options };
+export { tasks, options, Config, GulpHashPlugin, RollupHashPlugin };
 
 // API
 
