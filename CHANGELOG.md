@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [0.6.0] - 2022-01-19
+
+### CHANGED
+
+-   added `Config`, `GulpHashPlugin` and `RollupHashPlugin` to the `exports` in `index.js` so that it is possible to use them when writing custom tasks.
+
 ## [0.5.4] - 2021-05-11
 
 ### FIXED
