@@ -12,6 +12,7 @@ import Config from '../config.js';
 export default (options = {}) => {
 	options = {
 		flatten: true,
+		sourceMap: true,
 		...options,
 	};
 
@@ -26,9 +27,9 @@ export default (options = {}) => {
 					},
 				}),
 			)
-			.pipe(sourcemaps.init())
+			.pipe(gulpIf(options.sourceMap, sourcemaps.init()))
 			.pipe(postcss())
-			.pipe(sourcemaps.write('.'))
+			.pipe(gulpIf(options.sourceMap, sourcemaps.write('.')))
 			.pipe(gulpIf(options.flatten, flatten()))
 			.pipe(gulp.dest(options.dest))
 			.pipe(gulpIf(Config.versionManifest !== false, hash(Config.versionManifest)));
