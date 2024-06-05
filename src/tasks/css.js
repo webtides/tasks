@@ -3,7 +3,6 @@ import flatten from 'gulp-flatten';
 import plumber from 'gulp-plumber';
 import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
-import notify from 'gulp-notify';
 import gulpIf from 'gulp-if';
 import hash from 'src/util/GulpHashPlugin';
 
@@ -20,12 +19,7 @@ export default (options = {}) => {
 			.pipe(
 				plumber({
 					errorHandler: function (error) {
-						if (Config.showNotifications) {
-							notify.onError({
-								title: Config.projectTitle + ' - CSS Error',
-								message: error.toString(),
-							})(error);
-						}
+						console.log(Config.projectTitle + ' - CSS Error', error.toString());
 						this.emit('end');
 					},
 				}),

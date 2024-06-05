@@ -3,7 +3,6 @@ import { rollup, watch } from 'rollup';
 import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import notify from 'gulp-notify';
 import { terser } from 'rollup-plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
@@ -69,20 +68,10 @@ export default async (
 			});
 			watcher.on('event', (event) => {
 				if (event.code === 'START') {
-					if (Config.showNotifications) {
-						notify({
-							title: Config.projectTitle,
-							message: 'Starting "rollup"...',
-						}).write('');
-					}
+					console.log(Config.projectTitle, 'Starting "rollup"...');
 				}
 				if (event.code === 'BUNDLE_END') {
-					if (Config.showNotifications) {
-						notify({
-							title: 'rollup',
-							message: 'END "rollup" after ' + (event.duration / 1000).toFixed(2) + ' s',
-						}).write('');
-					}
+					console.log(Config.projectTitle, 'END "rollup" after ' + (event.duration / 1000).toFixed(2) + ' s');
 					if (event.result) {
 						event.result.close();
 					}
@@ -92,12 +81,6 @@ export default async (
 				}
 				if (event.code === 'ERROR' || event.code === 'FATAL') {
 					console.log('rollup watch ERROR', event);
-					if (Config.showNotifications) {
-						notify.onError({
-							title: Config.projectTitle,
-							message: 'JS ERROR|FATAL',
-						});
-					}
 				}
 			});
 		});
