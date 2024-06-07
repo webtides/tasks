@@ -4,8 +4,14 @@ import flatten from 'gulp-flatten';
 import merge from 'merge-stream';
 
 const copyTask = (src, dest, flat = true) => {
-	return gulp.src(src).pipe(gulpIf(flat, flatten())).pipe(gulp.dest(dest));
-};
+	return gulp.src(src).on('error', function(err) {
+		if (err.code === 'ENOENT') {
+			console.log('Directory' + src +  'does not exists, skipping task');
+			this.emit('end');
+		} else {
+			throw err;
+		}}).pipe(gulpIf(flat, flatten())).pipe(gulp.dest(dest));
+}
 
 export default (options) => {
 	return () => {
