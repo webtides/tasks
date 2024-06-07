@@ -8,6 +8,7 @@ import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
 import svg from 'rollup-plugin-svg';
 import hash from 'src/util/RollupHashPlugin';
+import log from 'fancy-log';
 
 const isDev = environments.development;
 const isProd = environments.production;
@@ -68,10 +69,10 @@ export default async (
 			});
 			watcher.on('event', (event) => {
 				if (event.code === 'START') {
-					console.log(Config.projectTitle, 'Starting "rollup"...');
+					log(Config.projectTitle, 'Starting "rollup"...');
 				}
 				if (event.code === 'BUNDLE_END') {
-					console.log(Config.projectTitle, 'END "rollup" after ' + (event.duration / 1000).toFixed(2) + ' s');
+					log(Config.projectTitle, 'END "rollup" after ' + (event.duration / 1000).toFixed(2) + ' s');
 					if (event.result) {
 						event.result.close();
 					}
@@ -80,7 +81,7 @@ export default async (
 					resolve();
 				}
 				if (event.code === 'ERROR' || event.code === 'FATAL') {
-					console.log('rollup watch ERROR', event);
+					log.error('rollup watch ERROR', event);
 				}
 			});
 		});

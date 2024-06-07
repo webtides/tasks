@@ -5,6 +5,7 @@ import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
 import gulpIf from 'gulp-if';
 import hash from 'src/util/GulpHashPlugin';
+import log from 'fancy-log';
 
 import Config from 'src/config.js';
 
@@ -19,7 +20,7 @@ export default (options = {}) => {
 			.pipe(
 				plumber({
 					errorHandler: function (error) {
-						console.log(Config.projectTitle + ' - CSS Error', error.toString());
+						log.error(Config.projectTitle + ' - CSS Error', error.toString());
 						this.emit('end');
 					},
 				}),

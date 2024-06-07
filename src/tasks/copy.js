@@ -2,11 +2,12 @@ import gulp from 'gulp';
 import gulpIf from 'gulp-if';
 import flatten from 'gulp-flatten';
 import merge from 'merge-stream';
+import log from 'fancy-log';
 
 const copyTask = (src, dest, flat = true) => {
 	return gulp.src(src).on('error', function(err) {
 		if (err.code === 'ENOENT') {
-			console.log('Directory' + src +  'does not exists, skipping task');
+			log.info('Directory' + src +  'does not exists, skipping task');
 			this.emit('end');
 		} else {
 			throw err;

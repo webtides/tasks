@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 
 import Config from 'src/config.js';
+import log from 'fancy-log';
 
 export default (options) => {
 	return () => {
@@ -9,10 +10,10 @@ export default (options) => {
 		options.paths.forEach((path) => {
 			gulp.watch(path.src, path.tasks)
 				.on('change', function () {
-					console.log(Config.projectTitle, path.changeMessage || 'Change');
+					log.info(Config.projectTitle, path.changeMessage || 'Change');
 				})
 				.on('error', function (error) {
-					console.log(Config.projectTitle, path.errorMessage || 'Error:' + error.message);
+					log.info(Config.projectTitle, path.errorMessage || 'Error:' + error.message);
 				});
 		});
 	};
