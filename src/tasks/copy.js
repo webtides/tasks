@@ -1,8 +1,9 @@
 import gulp from 'gulp';
 import gulpIf from 'gulp-if';
 import flatten from 'gulp-flatten';
-import merge from 'merge-stream';
 import log from 'fancy-log';
+import ordered from 'ordered-read-streams';
+
 
 const copyTask = (src, dest, flat = true) => {
 	return gulp.src(src).on('error', function(err) {
@@ -22,6 +23,6 @@ export default (options) => {
 			streams.push(copyTask(path.src, path.dest, path.flat ?? true));
 		});
 
-		return merge(streams);
+		return ordered(streams);
 	};
 };

@@ -31,6 +31,10 @@ const externals = [
 	'rollup-plugin-cleanup',
 	'zlib',
 	'util',
+	'ordered-read-streams',
+	'glob',
+	'fs-extra',
+	'path',
 ];
 
 module.exports = [
