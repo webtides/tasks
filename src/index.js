@@ -1,14 +1,13 @@
 import browserSync from 'src/tasks/browserSync';
 import clean from 'src/tasks/clean';
-import copy from 'src/tasks/copy';
 import css from 'src/tasks/css';
+import copy from 'src/tasks/fs-copy';
 import js from 'src/tasks/js';
 import lintCSS from 'src/tasks/lintCSS';
 import lintJS from 'src/tasks/lintJS';
 import run from 'src/tasks/run';
 import svg from 'src/tasks/svg';
 import watch from 'src/tasks/watch';
-import fsCopy from 'src/tasks/fs-copy';
 
 import Config from 'src/config';
 
@@ -23,7 +22,6 @@ const tasks = {
 	browserSync,
 	clean,
 	copy,
-	fsCopy,
 	css,
 	js,
 	lintCSS,

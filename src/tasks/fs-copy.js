@@ -18,7 +18,7 @@ const copyFiles = async (pattern, dest) => {
 	});
 };
 
-export const batchCopy = (options) => {
+export default (options) => {
 	return (done) => {
 		options.paths.forEach(async (path) => {
 			const { src, dest } = path;
@@ -31,5 +31,3 @@ export const batchCopy = (options) => {
 		return true;
 	};
 };
-
-export default batchCopy;
