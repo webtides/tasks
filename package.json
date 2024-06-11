@@ -64,7 +64,8 @@
 		"gulp-plumber": "^1.2.1",
 		"gulp-postcss": "^9.0.0",
 		"gulp-sourcemaps": "^2.6.5",
-		"gulp-svg-sprite": "^2.0.3",
+		"merge-stream": "^2.0.0",
+		"ordered-read-streams": "^2.0.0",
 		"postcss": "^8.2.4",
 		"postcss-import": "^14.0.0",
 		"postcss-load-config": "^3.0.1",
@@ -81,7 +82,9 @@
 		"rollup-plugin-terser": "^6.1.0",
 		"stylelint": "^16.6.1",
 		"stylelint-config-standard": "^20.0.0",
-		"through2": "^4.0.2"
+		"svg-sprite": "^2.0.4",
+		"through2": "^4.0.2",
+		"vinyl": "^3.0.0"
 	},
 	"devDependencies": {
 		"husky": "^4.2.5",
