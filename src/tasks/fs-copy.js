@@ -4,7 +4,8 @@ import path from 'path';
 import log from 'fancy-log';
 
 const copyFiles = async (pattern, dest) => {
-	const files = await glob(pattern);
+	// TODO pass globConfig?
+	const files = await glob(pattern, { nodir: true });
 	files.forEach((file) => {
 		const destPath = path.join(dest, path.basename(file));
 		fs.copy(file, destPath, (err) => {
