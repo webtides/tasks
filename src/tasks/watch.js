@@ -1,7 +1,7 @@
 import gulp from 'gulp';
+import log from 'fancy-log';
 
 import Config from 'src/config.js';
-import log from 'fancy-log';
 
 export default (options) => {
 	return () => {

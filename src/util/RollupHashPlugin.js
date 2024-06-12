@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { defaultOptions, addToManifest } from './HashHelpers';
+import { defaultOptions, addToManifest } from './HashHelpers.js';
 
 export default function hash(options = {}) {
 	options = { ...defaultOptions, ...options };

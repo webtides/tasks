@@ -4,9 +4,9 @@ import plumber from 'gulp-plumber';
 import postcss from 'gulp-postcss';
 import sourcemaps from 'gulp-sourcemaps';
 import gulpIf from 'gulp-if';
-import hash from 'src/util/GulpHashPlugin';
 import log from 'fancy-log';
 
+import hash from 'src/util/GulpHashPlugin.js';
 import Config from 'src/config.js';
 
 export default (options = {}) => {
