@@ -7,8 +7,8 @@ import { terser } from 'rollup-plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
 import svg from 'rollup-plugin-svg';
-import hash from 'src/util/RollupHashPlugin';
 import log from 'fancy-log';
+import hash from 'src/util/RollupHashPlugin.js';
 
 const isDev = environments.development;
 const isProd = environments.production;
