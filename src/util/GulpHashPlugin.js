@@ -1,7 +1,7 @@
 import path from 'path';
 import through from 'through2';
 
-import { defaultOptions, addToManifest } from './HashHelpers';
+import { defaultOptions, addToManifest } from './HashHelpers.js';
 
 export default function (options = {}) {
 	options = { ...defaultOptions, ...options };
