@@ -6,14 +6,15 @@ import sourcemaps from 'gulp-sourcemaps';
 import gulpIf from 'gulp-if';
 import log from 'fancy-log';
 
-import hash from 'src/util/GulpHashPlugin.js';
-import Config from 'src/config.js';
+import hash from '../util/GulpHashPlugin.js';
+import Config from '../config.js';
 
 export default (options = {}) => {
 	options = {
 		flatten: true,
 		...options,
 	};
+
 	return () => {
 		return gulp
 			.src(options.src)

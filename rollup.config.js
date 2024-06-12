@@ -1,9 +1,10 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 
 const externals = [
 	'@rollup/plugin-babel',
 	'@rollup/plugin-node-resolve',
 	'@rollup/plugin-commonjs',
+	'@rollup/plugin-terser',
 	'rollup-plugin-postcss',
 	'rollup-plugin-svg',
 	'gulp',
@@ -26,7 +27,6 @@ const externals = [
 	'through2',
 	'child_process',
 	'rollup',
-	'rollup-plugin-terser',
 	'rollup-plugin-cleanup',
 	'svg-sprite',
 	'zlib',
@@ -37,13 +37,12 @@ const externals = [
 	'path',
 ];
 
-module.exports = [
+export default [
 	{
 		input: 'src/index.js',
 		external: externals,
-		plugins: [babel()],
+		plugins: [babel({ babelHelpers: 'bundled' })],
 		output: {
-			interop: false,
 			file: 'dist/cjs/index.js',
 			format: 'cjs',
 		},

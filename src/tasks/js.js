@@ -1,3 +1,4 @@
+// TODO refactor to glob
 import glob from 'glob-all';
 import rollupJS from './rollupJS.js';
 
@@ -6,11 +7,11 @@ export default (options = { src: [], dest: '' }) => {
 		return rollupJS({
 			inputOptions: {
 				input: glob.sync(options.src),
-				...options.inputOptions || {},
+				...(options.inputOptions || {}),
 			},
 			outputOptions: {
 				dir: options.dest,
-				...options.outputOptions || {},
+				...(options.outputOptions || {}),
 			},
 			babelOptions: options.babelOptions || {},
 			resolveOptions: options.resolveOptions || {},

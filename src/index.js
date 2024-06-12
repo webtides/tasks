@@ -1,15 +1,15 @@
-import browserSync from 'src/tasks/browserSync.js';
-import clean from 'src/tasks/clean.js';
-import css from 'src/tasks/css.js';
-import copy from 'src/tasks/copy.js';
-import js from 'src/tasks/js.js';
-import lintCSS from 'src/tasks/lintCSS.js';
-import lintJS from 'src/tasks/lintJS.js';
-import run from 'src/tasks/run.js';
-import svg from 'src/tasks/svg.js';
-import watch from 'src/tasks/watch.js';
+import browserSync from './tasks/browserSync.js';
+import clean from './tasks/clean.js';
+import css from './tasks/css.js';
+import copy from './tasks/copy.js';
+import js from './tasks/js.js';
+import lintCSS from './tasks/lintCSS.js';
+import lintJS from './tasks/lintJS.js';
+import run from './tasks/run.js';
+import svg from './tasks/svg.js';
+import watch from './tasks/watch.js';
 
-import Config from 'src/config.js';
+import Config from './config.js';
 
 import GulpHashPlugin from './util/GulpHashPlugin.js';
 import RollupHashPlugin from './util/RollupHashPlugin.js';
