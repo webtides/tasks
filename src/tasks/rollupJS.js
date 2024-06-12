@@ -3,17 +3,16 @@ import { rollup, watch } from 'rollup';
 import { babel } from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import cleanup from 'rollup-plugin-cleanup';
 import postcss from 'rollup-plugin-postcss';
 import svg from 'rollup-plugin-svg';
 import log from 'fancy-log';
-import hash from 'src/util/RollupHashPlugin.js';
+import hash from '../util/RollupHashPlugin.js';
+import Config from '../config.js';
 
 const isDev = environments.development;
 const isProd = environments.production;
-
-import Config from 'src/config.js';
 
 export default async (
 	options = {

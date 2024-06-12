@@ -3,12 +3,6 @@ module.exports = ({ env }) => ({
 		require('postcss-import'),
 		require('postcss-nested'),
 		require('autoprefixer'),
-		env === 'production'
-			? require('@fullhuman/postcss-purgecss')({
-					content: ['./src/**/*.html', './src/**/*.js'],
-					defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
-			  })
-			: false,
 		env === 'production' ? require('cssnano')() : false,
 	],
 	inject: false,
