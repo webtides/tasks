@@ -1,6 +1,6 @@
 {
 	"name": "@webtides/tasks",
-	"version": "0.6.0-27",
+	"version": "1.0.0-01",
 	"description": "Tasks is a wrapper around gulp for most of the use cases for simple and modern (frontend) web development ",
 	"keywords": [
 		"tasks",
@@ -64,8 +64,6 @@
 		"gulp-plumber": "^1.2.1",
 		"gulp-postcss": "^9.0.0",
 		"gulp-sourcemaps": "^2.6.5",
-		"merge-stream": "^2.0.0",
-		"ordered-read-streams": "^2.0.0",
 		"postcss": "^8.2.4",
 		"postcss-import": "^14.0.0",
 		"postcss-load-config": "^3.0.1",
