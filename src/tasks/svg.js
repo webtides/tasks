@@ -1,4 +1,4 @@
-import glob from 'glob';
+import { glob } from 'glob';
 import SVGSprite from 'svg-sprite';
 import File from 'vinyl';
 import path from 'path';
