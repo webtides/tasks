@@ -1,5 +1,8 @@
 import babel from '@rollup/plugin-babel';
 
+import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
 const externals = [
 	'@rollup/plugin-babel',
 	'@rollup/plugin-node-resolve',
@@ -19,7 +22,6 @@ const externals = [
 	'gulp-svg-sprite',
 	'path',
 	'fs',
-	'del',
 	'crypto',
 	'browser-sync',
 	'fancy-log',
@@ -40,10 +42,10 @@ const externals = [
 export default [
 	{
 		input: 'src/index.js',
+		plugins: [nodeResolve(), commonjs(), json(), babel({ babelHelpers: 'bundled' })],
 		external: externals,
-		plugins: [babel({ babelHelpers: 'bundled' })],
 		output: {
-			file: 'dist/cjs/index.js',
+			file: 'dist/cjs/index.cjs',
 			format: 'cjs',
 		},
 		onwarn(warning, warn) {

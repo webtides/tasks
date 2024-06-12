@@ -1,7 +1,8 @@
-import del from 'del';
+import { deleteSync } from 'del';
 
 export default (options) => {
-	return () => {
-		return del(options.paths);
+	return (done) => {
+		deleteSync(options.paths);
+		done();
 	};
 };

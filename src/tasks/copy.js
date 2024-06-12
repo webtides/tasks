@@ -10,8 +10,6 @@ const copyFiles = async (pattern, dest, flat = true) => {
 		fs.copy(file, destPath, (err) => {
 			if (err) {
 				log.error(`Error copying ${file}:`, err);
-			} else {
-				log(`Copied ${file} to ${destPath}`);
 			}
 		});
 	});
