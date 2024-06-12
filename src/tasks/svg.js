@@ -6,9 +6,11 @@ import fs from 'fs';
 
 const defaultConfig = { mode: { symbol: true }, dest: '.' };
 
-const compileSvgSprite = (src, config = defaultConfig) => {
+const compileSvgSprite = (src, config = defaultConfig, cwdPath) => {
 	const spriter = new SVGSprite(config);
-	const cwd = process.cwd();
+
+	const cwd = cwdPath ? path.resolve(cwdPath) : process.cwd();
+
 	// Find SVG files recursively via `glob`
 	const files = glob.sync(src, { cwd });
 	files.forEach((file) => {
@@ -40,11 +42,11 @@ const compileSvgSprite = (src, config = defaultConfig) => {
 export const svg = (options) => {
 	return (done) => {
 		options.paths.forEach(async (path) => {
-			const { src, config } = path;
+			const { src, config, cwd } = path;
 			if (!src) {
 				throw new Error(`${JSON.stringify(path)} path must have "src" property`);
 			}
-			await compileSvgSprite(src, config);
+			await compileSvgSprite(src, config, cwd);
 		});
 		done();
 		return true;
