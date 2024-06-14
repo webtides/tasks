@@ -85,7 +85,7 @@
 		"lint-staged": "^15.2.6"
 	},
 	"scripts": {
-		"prepare": "rollup -c && husky",
+		"prepare": "rollup -c",
 		"dev": "rollup -c -w",
 		"build": "rollup -c"
 	}
