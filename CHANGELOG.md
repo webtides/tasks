@@ -15,6 +15,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [1.1.0] - 2026-09-25
+
+### ADDED
+
+-   adds opt-in version manifest support to the SVG task via `versionManifest: true`. Content-hashed sprite filenames generated with `mode.*.bust` are mapped from their stable logical paths using the existing global manifest configuration.
+
+### FIXED
+
+-   ensures the SVG task waits for all sprite compilations and file writes before completing and forwards compilation or write errors to Gulp.
+
 ## [0.6.0] - 2022-01-19
 
 ### CHANGED
