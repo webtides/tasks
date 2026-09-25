@@ -36,13 +36,18 @@ function generateVersionString(versionPattern, name, hash) {
 	return versionPattern.replace('[name]', name).replace('[hash]', hash);
 }
 
-function addToManifest(keyFilePath, valueFilePath, code, options) {
+function addManifestEntry(keyFilePath, valueFilePath, options) {
 	const manifest = tryRequire(options.name) || {};
 
-	manifest[`${keyFilePath}`] = generateVersionString(options.versionPattern, valueFilePath, md5(code));
+	manifest[`${keyFilePath}`] = valueFilePath;
 
 	mkdirPath(options.name);
 	fs.writeFileSync(options.name, JSON.stringify(manifest, null, 4), 'utf8');
 }
 
-export { defaultOptions, tryRequire, mkdirPath, generateVersionString, md5, addToManifest };
+function addToManifest(keyFilePath, valueFilePath, code, options) {
+	const versionedFilePath = generateVersionString(options.versionPattern, valueFilePath, md5(code));
+	addManifestEntry(keyFilePath, versionedFilePath, options);
+}
+
+export { defaultOptions, tryRequire, mkdirPath, generateVersionString, md5, addManifestEntry, addToManifest };
