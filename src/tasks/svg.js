@@ -4,52 +4,90 @@ import File from 'vinyl';
 import path from 'path';
 import fs from 'fs';
 
+import Config from '../config.js';
+import { addManifestEntry, defaultOptions, md5 } from '../util/HashHelpers.js';
+
 const defaultConfig = { mode: { symbol: true }, dest: '.' };
 
-const compileSvgSprite = (src, config = defaultConfig, cwdPath) => {
-	const spriter = new SVGSprite(config);
+const normalizePath = (filePath) => filePath.split(path.sep).join('/');
 
-	const cwd = cwdPath ? path.resolve(cwdPath) : process.cwd();
+const addSpriteToManifest = (resource) => {
+	const manifestOptions = { ...defaultOptions, ...Config.versionManifest };
+	const versionedPath = normalizePath(path.relative(process.cwd(), resource.path));
+	const extension = path.extname(versionedPath);
+	const hashSuffix = `-${md5(resource.contents).slice(0, 8)}${extension}`;
 
-	// Find SVG files recursively via `glob`
-	const files = glob.sync(src, { cwd });
-	files.forEach((file) => {
-		try {
-			spriter.add(
-				new File({
-					path: path.join(cwd, file), // Absolute path to the SVG file
-					base: cwd, // Base path (see `name` argument)
-					contents: fs.readFileSync(path.join(cwd, file)), // SVG file contents
-				}),
-			);
-		} catch (e) {
-			console.error(e);
-		}
-	});
+	if (!versionedPath.endsWith(hashSuffix)) {
+		throw new Error('SVG sprite version manifest requires "mode.*.bust" to be enabled');
+	}
 
-	// Compile the sprite
-	spriter.compile((error, result) => {
-		/* Write `result` files to disk (or do whatever with them ...) */
-		for (const mode of Object.values(result)) {
-			for (const resource of Object.values(mode)) {
-				fs.mkdirSync(path.dirname(resource.path), { recursive: true });
-				fs.writeFileSync(resource.path, resource.contents);
+	const unversionedPath = `${versionedPath.slice(0, -hashSuffix.length)}${extension}`;
+	addManifestEntry(
+		manifestOptions.formatter(unversionedPath),
+		manifestOptions.formatter(versionedPath),
+		manifestOptions,
+	);
+};
+
+const compileSvgSprite = (src, config = defaultConfig, cwdPath, versionManifest = false) => {
+	return new Promise((resolve, reject) => {
+		const spriter = new SVGSprite(config);
+
+		const cwd = cwdPath ? path.resolve(cwdPath) : process.cwd();
+
+		// Find SVG files recursively via `glob`
+		const files = glob.sync(src, { cwd });
+		files.forEach((file) => {
+			try {
+				spriter.add(
+					new File({
+						path: path.join(cwd, file), // Absolute path to the SVG file
+						base: cwd, // Base path (see `name` argument)
+						contents: fs.readFileSync(path.join(cwd, file)), // SVG file contents
+					}),
+				);
+			} catch (e) {
+				console.error(e);
 			}
-		}
+		});
+
+		// Compile the sprite
+		spriter.compile((error, result) => {
+			if (error) {
+				reject(error);
+				return;
+			}
+
+			try {
+				/* Write `result` files to disk (or do whatever with them ...) */
+				for (const mode of Object.values(result)) {
+					for (const [resourceName, resource] of Object.entries(mode)) {
+						fs.mkdirSync(path.dirname(resource.path), { recursive: true });
+						fs.writeFileSync(resource.path, resource.contents);
+						if (versionManifest && resourceName === 'sprite') {
+							addSpriteToManifest(resource);
+						}
+					}
+				}
+				resolve(result);
+			} catch (writeError) {
+				reject(writeError);
+			}
+		});
 	});
 };
 
 export const svg = (options) => {
 	return (done) => {
-		options.paths.forEach(async (path) => {
+		const compilations = options.paths.map((path) => {
 			const { src, config, cwd } = path;
 			if (!src) {
-				throw new Error(`${JSON.stringify(path)} path must have "src" property`);
+				return Promise.reject(new Error(`${JSON.stringify(path)} path must have "src" property`));
 			}
-			await compileSvgSprite(src, config, cwd);
+			return compileSvgSprite(src, config, cwd, options.versionManifest && Config.versionManifest !== false);
 		});
-		done();
-		return true;
+
+		Promise.all(compilations).then(() => done(), done);
 	};
 };
 
