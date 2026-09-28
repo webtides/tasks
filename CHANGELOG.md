@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [1.1.1] - 2026-09-28
+
+### FIXED
+
+-   npm publishing
+
 ## [1.1.0] - 2026-09-25
 
 ### ADDED
