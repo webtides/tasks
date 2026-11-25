@@ -41,6 +41,14 @@ tasks.svg({ paths: [] });
 tasks.browserSync({ files: [] });
 ```
 
+The CSS task uses the original filename by default. Set the task option `filenamePattern: '[name]-[hash].css'` to write a hashed copy. `[name]` is the original basename without `.css`. Use a `.css` filename with `[hash]` and no directory. Both files share a source map when source maps are enabled.
+
+If the version manifest is enabled, its entry points to the hashed copy.
+
+Set the JS task option `versionPattern: '[name]'` to use Rollup's generated path directly in the manifest. Use it with `outputOptions.entryFileNames: '[name]-[hash].js'` to keep only Rollup's filename hash. The task option overrides the shared `versionManifest.versionPattern`.
+
+Gulp tasks that write assets can set `file.manifestAsset` on each Vinyl file before piping it to `GulpHashPlugin`. Pass `{ key, path, hashed }` with the logical path, written path, and whether the name contains a content hash. Paths are resolved against the Vinyl working directory for the manifest. Use `hashed: false` to apply the configured query fallback to the file contents, or set `file.manifestAsset` to `null` to omit the file.
+
 ## Documentation
 
 For detailed documentation see the [Docs](docs/README.md).

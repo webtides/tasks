@@ -33,7 +33,7 @@ function mkdirPath(dest) {
 }
 
 function generateVersionString(versionPattern, name, hash) {
-	return versionPattern.replace('[name]', name).replace('[hash]', hash);
+	return versionPattern.replace('[hash]', hash).replace('[name]', () => name);
 }
 
 function addManifestEntry(keyFilePath, valueFilePath, options) {
@@ -50,4 +50,24 @@ function addToManifest(keyFilePath, valueFilePath, code, options) {
 	addManifestEntry(keyFilePath, versionedFilePath, options);
 }
 
-export { defaultOptions, tryRequire, mkdirPath, generateVersionString, md5, addManifestEntry, addToManifest };
+function addAssetToManifest({ key, path: outputPath, hashed, contents }, options) {
+	const keyFilePath = options.formatter(key);
+	const valueFilePath = key === outputPath ? keyFilePath : options.formatter(outputPath);
+
+	if (hashed) {
+		addManifestEntry(keyFilePath, valueFilePath, options);
+	} else {
+		addToManifest(keyFilePath, valueFilePath, contents, options);
+	}
+}
+
+export {
+	defaultOptions,
+	tryRequire,
+	mkdirPath,
+	generateVersionString,
+	md5,
+	addManifestEntry,
+	addToManifest,
+	addAssetToManifest,
+};

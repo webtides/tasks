@@ -13,6 +13,7 @@ export default (options = { src: [], dest: '' }) => {
 				dir: options.dest,
 				...(options.outputOptions || {}),
 			},
+			versionPattern: options.versionPattern,
 			babelOptions: options.babelOptions || {},
 			resolveOptions: options.resolveOptions || {},
 			postcssOptions: options.postcssOptions || {},

@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs';
 
 import Config from '../config.js';
-import { addManifestEntry, defaultOptions, md5 } from '../util/HashHelpers.js';
+import { addAssetToManifest, defaultOptions, md5 } from '../util/HashHelpers.js';
 
 const defaultConfig = { mode: { symbol: true }, dest: '.' };
 
@@ -22,11 +22,7 @@ const addSpriteToManifest = (resource) => {
 	}
 
 	const unversionedPath = `${versionedPath.slice(0, -hashSuffix.length)}${extension}`;
-	addManifestEntry(
-		manifestOptions.formatter(unversionedPath),
-		manifestOptions.formatter(versionedPath),
-		manifestOptions,
-	);
+	addAssetToManifest({ key: unversionedPath, path: versionedPath, hashed: true }, manifestOptions);
 };
 
 const compileSvgSprite = (src, config = defaultConfig, cwdPath, versionManifest = false) => {
