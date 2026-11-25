@@ -26,6 +26,12 @@ export default async (
 		watchOptions: {},
 	},
 ) => {
+	const versionManifest = Config.versionManifest;
+	const manifestOptions = { ...versionManifest };
+	if (options.versionPattern !== undefined) {
+		manifestOptions.versionPattern = options.versionPattern;
+	}
+
 	const inputOptions = {
 		input: '',
 		plugins: [
@@ -34,7 +40,7 @@ export default async (
 			svg(),
 			commonjs({ ...options.commonjsOptions }),
 			babel({ ...options.babelOptions }),
-			Config.versionManifest !== false && hash(Config.versionManifest),
+			versionManifest !== false && hash(manifestOptions),
 			isProd() && cleanup({ ...options.cleanupOptions }),
 			isProd() && terser(),
 		],
