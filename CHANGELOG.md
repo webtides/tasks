@@ -15,6 +15,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 <!-- ### Removed -->
 <!-- ### Fixed -->
 
+## [1.2.1] - 2026-11-26
+
+### FIXED
+
+-   Add the missing changelog entries for 1.2.0.
+
+## [1.2.0] - 2026-11-26
+
+### ADDED
+
+-   Add opt-in hashed filenames to the CSS task via `filenamePattern`. The task writes the hashed stylesheet and, when enabled, a matching source map. The manifest maps the original name to the generated stylesheet.
+-   Add a per-task `versionPattern` to the JS task. Use `[name]` to record Rollup's generated filename directly in the manifest.
+-   Let Gulp tasks set `file.manifestAsset` to register an emitted path and apply the query fallback to assets with stable filenames.
+
+### FIXED
+
+-   Treat special characters in asset names literally when expanding version patterns.
+-   Forward hashed CSS output and Gulp manifest registration errors through the build streams.
+
 ## [1.1.1] - 2026-09-28
 
 ### FIXED
