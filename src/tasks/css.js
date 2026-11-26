@@ -1,4 +1,3 @@
-import fs from 'fs';
 import path from 'path';
 import { pipeline } from 'stream';
 import gulp from 'gulp';
@@ -14,28 +13,30 @@ import hash from '../util/GulpHashPlugin.js';
 import { generateVersionString, md5 } from '../util/HashHelpers.js';
 import Config from '../config.js';
 
-function writeHashedCss(filenamePattern) {
+function hashCssFilenames(filenamePattern, originalNames) {
 	const isCssFilename = path.extname(filenamePattern) === '.css' && !/[\\/?#]/.test(filenamePattern);
 	if (!isCssFilename || !filenamePattern.includes('[hash]')) {
 		throw new Error('filenamePattern must be a .css filename pattern containing [hash]');
 	}
 
 	return through.obj((file, encoding, callback) => {
-		if (file.extname !== '.css') {
-			file.manifestAsset = null;
-			return callback(null, file);
+		if (file.extname === '.css') {
+			originalNames.set(file, file.basename);
+			// Hash before the source map URL adds a reference to the hashed filename.
+			file.basename = generateVersionString(filenamePattern, file.stem, md5(file.contents));
 		}
 
-		const versionedName = generateVersionString(filenamePattern, file.stem, md5(file.contents));
-		const versionedPath = path.join(file.dirname, versionedName);
-		try {
-			fs.writeFileSync(versionedPath, file.contents);
-		} catch (error) {
-			return callback(error);
-		}
+		callback(null, file);
+	});
+}
 
-		file.manifestAsset = { key: file.path, path: versionedPath, hashed: true };
-
+function describeHashedCss(originalNames) {
+	return through.obj((file, encoding, callback) => {
+		// Only the tracked stylesheet objects are registered, so the generated maps pass through.
+		const originalName = originalNames.get(file);
+		file.manifestAsset = originalName
+			? { key: path.join(file.dirname, originalName), path: file.path, hashed: true }
+			: null;
 		callback(null, file);
 	});
 }
@@ -51,8 +52,10 @@ export default (options = {}) => {
 	return () => {
 		const { filenamePattern } = options;
 		const versionManifest = Config.versionManifest;
-		const hashedCss = filenamePattern && writeHashedCss(filenamePattern);
+		const originalNames = new WeakMap();
+		const hashedCss = filenamePattern && hashCssFilenames(filenamePattern, originalNames);
 
+		// Compile using the source filenames so the maps point back to the input files.
 		const css = gulp
 			.src(options.src)
 			.pipe(
@@ -64,18 +67,27 @@ export default (options = {}) => {
 				}),
 			)
 			.pipe(gulpIf(options.sourceMap, sourcemaps.init()))
-			.pipe(postcss())
-			.pipe(gulpIf(options.sourceMap, sourcemaps.write('.')))
-			.pipe(gulpIf(options.flatten, flatten()))
-			.pipe(gulp.dest(options.dest));
+			.pipe(postcss());
 
+		const writeMaps = gulpIf(options.sourceMap, sourcemaps.write('.'));
+		const flattenPaths = gulpIf(options.flatten, flatten());
+		const destination = gulp.dest(options.dest);
+
+		// Keep the existing watch error handling and query fallback for stable filenames.
 		if (!hashedCss) {
-			return css.pipe(gulpIf(versionManifest !== false, hash(versionManifest)));
+			return css
+				.pipe(writeMaps)
+				.pipe(flattenPaths)
+				.pipe(destination)
+				.pipe(gulpIf(versionManifest !== false, hash(versionManifest)));
 		}
 
-		const streams = [css.pipe(plumber.stop()), hashedCss];
+		// Rename before writing maps so both filenames share the hash.
+		// Stop plumber here so pipeline forwards output errors to Gulp.
+		const streams = [css.pipe(plumber.stop()), hashedCss, writeMaps, flattenPaths, destination];
 		if (versionManifest !== false) {
-			streams.push(hash(versionManifest));
+			// Register the destination path after gulp.dest() writes the stylesheet.
+			streams.push(describeHashedCss(originalNames), hash(versionManifest));
 		}
 
 		return pipeline(streams, () => {});

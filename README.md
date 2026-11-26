@@ -41,9 +41,9 @@ tasks.svg({ paths: [] });
 tasks.browserSync({ files: [] });
 ```
 
-The CSS task uses the original filename by default. Set the task option `filenamePattern: '[name]-[hash].css'` to write a hashed copy. `[name]` is the original basename without `.css`. Use a `.css` filename with `[hash]` and no directory. Both files share a source map when source maps are enabled.
+The CSS task uses the original filename by default. Set the task option `filenamePattern: '[name]-[hash].css'` to emit the stylesheet under its hashed filename. `[name]` is the original basename without `.css`. Use a `.css` filename with `[hash]` and no directory.
 
-If the version manifest is enabled, its entry points to the hashed copy.
+When source maps are enabled, the task hashes the compiled CSS before adding its source map URL. The map uses the same hashed filename with `.map` appended. The version manifest maps the original name to the generated stylesheet.
 
 Set the JS task option `versionPattern: '[name]'` to use Rollup's generated path directly in the manifest. Use it with `outputOptions.entryFileNames: '[name]-[hash].js'` to keep only Rollup's filename hash. The task option overrides the shared `versionManifest.versionPattern`.
 
